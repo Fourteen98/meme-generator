@@ -4,23 +4,32 @@ import {useState} from "react";
 
 function Meme() {
 
-  const [memeUrl, setMemeUrl] = useState(() => "" );
-  const [memeHeight, setMemeHeight] = useState(() => "" );
-  const [memeWidth, setMemeWidth] = useState(() => "" );
+  const [meme, setMeme] = useState(
+    {
+      height: "",
+      width: "",
+      topText: "",
+      bottomText: "",
+      image: "https://i.imgflip.com/1g8my4.jpg"
+    });
+
+  const [allMemesImages, setAllMemesImages] = useState(memesData)
 
   function getMemeImage() {
     const memesArray = memesData.data.memes
     const randomNumber = Math.floor(Math.random() * memesArray.length)
-    setMemeUrl(() => memesArray[randomNumber].url)
-    setMemeHeight(() => memesArray[randomNumber].height)
-    setMemeWidth(() => memesArray[randomNumber].width)
+    setMeme(() => ({
+      ...meme,
+      image: memesArray[randomNumber].url
+    }))
+
     event.preventDefault()
     console.log(randomNumber)
   }
 
   const memeStyle = {
-    height: memeHeight,
-    width: memeWidth,
+    height: meme.height,
+    width: meme.width,
     "object-fit": "contain"
   }
 
@@ -33,8 +42,7 @@ function Meme() {
           <button className="form--button" onClick={getMemeImage}>Get a new meme image</button>
         </form>
         <div className="meme--container">
-          <img src={memeUrl} alt="meme" style={memeStyle} className="meme--image"/>
-
+          <img src={meme.image} alt="meme" style={memeStyle} className="meme--image"/>
         </div>
 
       </div>
