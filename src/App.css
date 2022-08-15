@@ -80,4 +80,23 @@ main {
 
 .meme--image {
   object-fit: cover;
+  position: absolute;
+}
+
+.meme--text {
+  position: absolute;
+  font-family: "karla", sans-serif;
+  font-size: 90px;
+  font-weight: 1200;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.bottom {
+  bottom: 20%;
+}
+
+.top {
+  top: 30%;
 }
