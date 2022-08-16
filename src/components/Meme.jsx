@@ -13,16 +13,24 @@ function Meme() {
       image: "https://i.imgflip.com/1g8my4.jpg"
     });
 
-  const [allMemesImages, setAllMemesImages] = useState(memesData)
+  const [allMemes, setAllMemes] = useState([])
+
+  React.useEffect(async () => {
+    const res = await fetch("https://api.imgflip.com/get_memes");
+    const data = await res.json()
+    setAllMemes(data.data.memes)
+  },[])
+
+  console.log( allMemes)
 
   function getMemeImage() {
-    const memesArray = memesData.data.memes
-    const randomNumber = Math.floor(Math.random() * memesArray.length)
+
+    const randomNumber = Math.floor(Math.random() * allMemes.length)
     setMeme(() => ({
       ...meme,
-      height: memesArray[randomNumber].height,
-      width: memesArray[randomNumber].width,
-      image: memesArray[randomNumber].url
+      height: allMemes[randomNumber].height,
+      width: allMemes[randomNumber].width,
+      image: allMemes[randomNumber].url
     }))
 
     event.preventDefault()
@@ -36,7 +44,6 @@ function Meme() {
     }))
   }
 
-  console.log(meme)
 
 
   const memeStyle = {
